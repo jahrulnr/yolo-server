@@ -27,7 +27,7 @@ jobs:
         docker save yolo:latest | gzip > yolo_latest.tar.gz
       
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: yolo-docker-image
         path: yolo_latest.tar.gz
