@@ -1,0 +1,33 @@
+name: Build and Save Docker Image
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build Docker image for multiple architectures
+      run: |
+        docker buildx create --use
+        docker buildx build . \
+          --platform linux/amd64,linux/arm64 \
+          -t yolo:latest \
+          --output type=docker
+
+    - name: Save Docker image as artifact
+      run: |
+        docker save yolo:latest | gzip > yolo_latest.tar.gz
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: yolo-docker-image
+        path: yolo_latest.tar.gz
