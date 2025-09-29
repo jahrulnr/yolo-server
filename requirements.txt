@@ -1,6 +1,7 @@
 # torch==2.3.1+cpu # amd64
 torch==2.3.1
-torchvision==0.18.1+cpu
+#torchvision==0.18.1+cpu
+torchvision==0.18.1
 ultralytics>=8.3.203
 
 tqdm==4.67.1
