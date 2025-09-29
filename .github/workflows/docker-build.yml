@@ -20,12 +20,12 @@ jobs:
         docker buildx build . \
           --platform linux/amd64,linux/arm64 \
           -t yolo:latest \
-          --output type=docker
+          --output type=local,dest=./docker-output
 
     - name: Save Docker image as artifact
       run: |
-        docker save yolo:latest | gzip > yolo_latest.tar.gz
-      
+        tar -czf yolo_latest.tar.gz -C ./docker-output .
+
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:

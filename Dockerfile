@@ -11,11 +11,11 @@ FROM python:3.9.23-slim-trixie
 COPY requirements.txt /tmp/
 ENV CUDA_VISIBLE_DEVICES=-1
 RUN apt update && apt install -y libgl1 libglib2.0-bin \
-	&& pip install --no-cache-dir -r /tmp/requirements.txt \
-	 -f https://download.pytorch.org/whl/cpu/torch_stable.html \
-# RUN yolo predict model=yolo11n.pt source='https://ultralytics.com/images/bus.jpg'
 	&& rm -rf /var/cache/apt/archives /var/lib/apt/lists/* \
 	&& apt-get clean
+RUN pip install --no-cache-dir -r /tmp/requirements.txt \
+	 -f https://download.pytorch.org/whl/cpu/torch_stable.html
+# RUN yolo predict model=yolo11n.pt source='https://ultralytics.com/images/bus.jpg'
 
 WORKDIR /app
 COPY python /app
