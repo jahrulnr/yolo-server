@@ -8,7 +8,7 @@ ENV GOOS=linux \
 RUN go build -o server cmd/main.go && chmod +x server
 
 FROM python:3.9.23-slim-trixie
-COPY requirements.txt /tmp/
+COPY python/requirements.txt /tmp/
 ENV CUDA_VISIBLE_DEVICES=-1
 RUN apt update && apt install -y libgl1 libglib2.0-bin \
 	&& rm -rf /var/cache/apt/archives /var/lib/apt/lists/* \

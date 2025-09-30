@@ -1,0 +1,9 @@
+services:
+  yolo:
+    image: yolo:amd64
+    container_name: yolo-server
+    restart: unless-stopped
+    volumes:
+      - ./tmp:/storage
+    ports:
+    - 8080:8080
