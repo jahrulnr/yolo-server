@@ -6,9 +6,10 @@ let loading = { loading: true, progress: 0 };
 
 // Define class labels (replace with actual labels for your model)
 let labels = [];
+const modelPath = 'https://raw.githubusercontent.com/jahrulnr/yolo-server/refs/heads/master/browser/yolo11n_web_model'
 
 async function loadLabels() {
-    const response = await fetch('yolo11n_web_model/metadata.yaml');
+    const response = await fetch(modelPath + '/metadata.yaml');
     const metadata = jsyaml.load(await response.text()); // Use jsyaml from the global scope
     console.log(metadata.names)
     return metadata.names;
@@ -30,7 +31,7 @@ async function setupCamera() {
 
 async function loadModel() {
     // Load the model with progress tracking
-    const model = await tf.loadGraphModel('yolo11n_web_model/model.json', {
+    const model = await tf.loadGraphModel(modelPath + '/model.json', {
         onProgress: (fractions) => {
             loading = { loading: true, progress: fractions };
             console.log(`Loading model... ${(fractions * 100).toFixed(2)}%`);
